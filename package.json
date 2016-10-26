@@ -1,8 +1,8 @@
 {
   "name": "gist-sync",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a lib to help sync a directory to your gist",
-  "main": "dist/gist-sync.js",
+  "main": "dist/gists-sync.js",
   "scripts": {
     "build": "babel src --out-dir dist",
     "watch": "babel src --out-dir dist -w",
