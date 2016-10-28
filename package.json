@@ -1,6 +1,6 @@
 {
   "name": "gist-sync",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "a lib to help sync a directory to your gist",
   "main": "dist/gists-sync.js",
   "scripts": {
