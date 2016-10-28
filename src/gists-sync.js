@@ -214,11 +214,11 @@ class GistsSync extends EventEmitter2 {
   }
 
   async downloadFile ({ id }) {
-    const gist = this.getGist(id)
+    const {body: gist} = await this.getGist(id)
     const {filename, content} = parseSingleFileFromGist(gist)
     const filepath = path.resolve(
       this.getDir(this.directory),
-      filename
+      `${filename}`
     )
     return await writeFile(filepath, content)
   }
