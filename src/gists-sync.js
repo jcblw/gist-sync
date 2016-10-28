@@ -3,12 +3,13 @@ import assert from 'assert'
 import autoBind from 'auto-bind'
 import { EventEmitter2 } from 'eventemitter2'
 import asyncCatch from 'async-fn-catch'
-import { readFile } from './fs-promise'
+import { readFile, writeFile } from './fs-promise'
 import GistsWatcher from './gists-watcher'
 import GistsApi from './gists-api'
 import {
   serializeSingleFileGist,
-  getGistByFileName
+  getGistByFileName,
+  parseSingleFileFromGist
 } from './gist-serializer'
 
 class GistsSync extends EventEmitter2 {
@@ -16,6 +17,7 @@ class GistsSync extends EventEmitter2 {
     super()
     autoBind(this)
     this.validateOptions(options)
+    this.directory = directory
     this.pattern = this.getPattern(directory)
     this.pollInterval = options.pollInterval
     this.options = options
@@ -44,8 +46,12 @@ class GistsSync extends EventEmitter2 {
   */
 
   getPattern (directory) {
-    const dir = path.resolve(process.cwd(), directory)
+    const dir = this.getDir(directory)
     return `${dir}/`
+  }
+
+  getDir (directory) {
+    return path.resolve(process.cwd(), directory)
   }
 
   hasFileUpdated (filename, content, existing) {
@@ -110,6 +116,7 @@ class GistsSync extends EventEmitter2 {
   }
 
   setDirectory (directory) {
+    this.directory = directory
     this.pattern = this.getPattern(directory)
     this.watcher.setPattern(this.pattern)
   }
@@ -206,6 +213,16 @@ class GistsSync extends EventEmitter2 {
     // TODO: Possibly do this?
   }
 
+  async downloadFile ({ id }) {
+    const gist = this.getGist(id)
+    const {filename, content} = parseSingleFileFromGist(gist)
+    const filepath = path.resolve(
+      this.getDir(this.directory),
+      filename
+    )
+    return await writeFile(filepath, content)
+  }
+
   /*
     methods dealing with fetching more data
   */
@@ -232,6 +249,11 @@ class GistsSync extends EventEmitter2 {
       this.getGistByFileName = getGistByFileName(gists)
     }
     return gists
+  }
+
+  async getGist (id) {
+    // dont hit cache for single gist
+    return await this.api.getGist({id})
   }
 }
 

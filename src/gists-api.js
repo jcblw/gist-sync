@@ -53,6 +53,13 @@ class GistsApi {
     )
   }
 
+  getGist (content) {
+    return this.request(
+      `/gists/${content.id}`,
+      'get'
+    )
+  }
+
   createGist (content) {
     return this.request(
       '/gists',
