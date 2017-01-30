@@ -24,7 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "async-fn-catch": "^0.1.0",
-    "auto-bind": "^1.0.0",
+    "auto-bind": "^1.1.0",
     "chokidar": "^1.6.1",
     "eventemitter2": "^3.0.0",
     "got": "^6.5.0",
