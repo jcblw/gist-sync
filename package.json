@@ -28,7 +28,7 @@
     "chokidar": "^1.6.1",
     "eventemitter2": "^3.0.0",
     "got": "^6.5.0",
-    "nyc": "^8.3.2"
+    "nyc": "^10.3.2"
   },
   "devDependencies": {
     "ava": "^0.16.0",
