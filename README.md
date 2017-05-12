@@ -1,5 +1,7 @@
 # Gist Sync
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jcblw/gist-sync.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/jcblw/gist-sync.svg?branch=master)](https://travis-ci.org/jcblw/gist-sync)
 
 This is a lib that allows you to sync a directory to you github gist.
